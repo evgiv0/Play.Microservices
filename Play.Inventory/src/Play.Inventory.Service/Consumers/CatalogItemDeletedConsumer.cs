@@ -1,0 +1,32 @@
+﻿using MassTransit;
+using Play.Catalog.Contracts;
+using Play.Common.Service.Repositories;
+using Play.Inventory.Service.Entities;
+using System.Threading.Tasks;
+
+namespace Play.Inventory.Service.Consumers
+{
+    public class CatalogItemDeletedConsumer : IConsumer<CatalogItemDeleted>
+    {
+        private readonly IRepository<CatalogItem> repository;
+
+        public CatalogItemDeletedConsumer(IRepository<CatalogItem> repository)
+        {
+            this.repository = repository;
+        }
+
+        public async Task Consume(ConsumeContext<CatalogItemDeleted> context)
+        {
+            var message = context.Message;
+
+            var item = await repository.GetByIdAsync(message.ItemId);
+
+            if (item == null)
+            {
+                return;
+            }
+
+            await repository.DeleteAsync(message.ItemId);
+        }
+    }
+}
