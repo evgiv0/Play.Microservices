@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MassTransit;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Play.Catalog.Contracts;
 using Play.Catalog.Service.Entities;
@@ -11,6 +12,7 @@ using Play.Common.Service.Repositories;
 namespace Play.Catalog.Service.Controllers
 {
     [ApiController]
+    [Authorize]
     [Route("[controller]")]
     public class ItemsController : ControllerBase
     {

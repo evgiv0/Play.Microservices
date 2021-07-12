@@ -13,6 +13,7 @@ using Polly;
 using Microsoft.Extensions.Logging;
 using Polly.Timeout;
 using Play.Common.MassTransit;
+using Play.Common.Identity;
 
 namespace Play.Inventory.Service
 {
@@ -31,7 +32,8 @@ namespace Play.Inventory.Service
             services.AddMongo()
                 .AddMongoRepository<InventoryItem>("inventoryItems")
                 .AddMongoRepository<CatalogItem>("catalogItems")
-                .AddMassTransitWithRabbitMq();
+                .AddMassTransitWithRabbitMq()
+                .AddJwtBearerAuthentification();
 
             AddCatalogClient(services);
 
@@ -57,6 +59,7 @@ namespace Play.Inventory.Service
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

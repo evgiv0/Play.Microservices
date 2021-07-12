@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Play.Common.Service.Repositories;
 using Play.Inventory.Service.Clients;
@@ -10,6 +11,7 @@ using Play.Inventory.Service.Entities;
 namespace Play.Inventory.Service.Controllers
 {
     [ApiController]
+    [Authorize]
     [Route("[controller]")]
     public class ItemsController : ControllerBase
     {
